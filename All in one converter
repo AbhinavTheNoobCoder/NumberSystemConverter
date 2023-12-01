@@ -157,6 +157,7 @@ Press:
         pow8 = 0
         dec = 0
         if int(n) == n:
+            n = int(n)
             while n > 0:
                 rem = n%10
                 dec += rem*(8**pow8)
