@@ -16,16 +16,16 @@ Press:
 4 for hexadecimal
 >>> '''))
     if initial_base == 1:
-        n = float(input("Enter the decimal number: "))
+        n = input("Enter the decimal number: ")
     elif initial_base == 2:
-        n = float(input("Enter the binary number: "))
+        n = input("Enter the binary number: ")
         for l in "23456789":
-            if l in str(n):
+            if l in n:
                 invalid += 1
-                break
+                break   
     elif initial_base == 3:
-        n = float(input("Enter the octal number: "))
-        if "8" in str(n) or "9" in str(n):
+        n = input("Enter the octal number: ")
+        if "8" in n or "9" in n:
             invalid += 1
     elif initial_base == 4:
         n = input("Enter the hexadecimal number: ")
@@ -38,110 +38,153 @@ Press:
     def DecToBin(n):
         fcount = 0
         l1 = []
-        int_n = int(n)
-        fl_n = round(n - int(n), len(str(n)) - len(str(int(n)))- 1)
-        while int_n > 0:
-            rem = str(int_n%2)
-            l1.insert(0, rem)
-            int_n = int_n//2
-        bi = ''
-        for digit in l1:
-            bi = bi + digit
-        l1.clear()
-        while fl_n != 0 and fcount < 10:
-            fcount += 1
-            l1.append(str(int(fl_n * 2)))
-            fl_n = round(fl_n*2 - int(fl_n * 2), len(str(fl_n*2)) - len(str(int(fl_n*2))) - 1)
-        if int(n) != n:
+        try:
+            n = int(n)
+            while n > 0:
+                rem = str(n%2)
+                l1.insert(0, rem)
+                n = n//2
+            bi = ''
+            for digit in l1:
+                bi = bi + digit
+            l1.clear()
+        except ValueError:
+            int_n, fl_n = n.split(".")
+            int_n = int(int_n)
+            fl_n = float("0." + fl_n)
+            while int_n > 0:
+                rem = str(int_n%2)
+                l1.insert(0, rem)
+                int_n = int_n//2
+            bi = ''
+            for digit in l1:
+                bi = bi + digit
+            l1.clear()
+            while fl_n != 0 and fcount < 10:
+                fcount += 1
+                l1.append(str(int(fl_n * 2)))
+                fl_n = round(fl_n*2 - int(fl_n * 2), len(str(fl_n*2)) - len(str(int(fl_n*2))) - 1)
             bi += "."
-        for digit in l1:
-            bi += digit
+            for digit in l1:
+                bi += digit
         return bi
 
     def DecToOct(n):
         fcount = 0
         l1 = []
-        int_n = int(n)
-        fl_n = round(n - int(n), len(str(n)) - len(str(int(n)))- 1)
-        while int_n > 0:
-            rem = str(int_n%8)
-            l1.insert(0, rem)
-            int_n = int_n//8
-        octa = ''
-        for digit in l1:
-            octa = octa + digit
-        l1.clear()
-        while fl_n != 0 and fcount < 10:
-            fcount += 1
-            l1.append(str(int(fl_n * 8)))
-            fl_n = round(fl_n*8 - int(fl_n * 8), len(str(fl_n*8)) - len(str(int(fl_n*8))) - 1)
-        if int(n) != n:
+        try:
+            n = int(n)
+            while n > 0:
+                rem = str(n%8)
+                l1.insert(0, rem)
+                n = n//8
+            octa = ''
+            for digit in l1:
+                octa = octa + digit
+        except ValueError:
+            int_n, fl_n = n.split(".")
+            int_n = int(int_n)
+            fl_n = float("0." + fl_n)
+            while int_n > 0:
+                rem = str(int_n%8)
+                l1.insert(0, rem)
+                int_n = int_n//8
+            octa = ''
+            for digit in l1:
+                octa = octa + digit
+            l1.clear()
+            while fl_n != 0 and fcount < 10:
+                fcount += 1
+                l1.append(str(int(fl_n * 8)))
+                fl_n = round(fl_n*8 - int(fl_n * 8), len(str(fl_n*8)) - len(str(int(fl_n*8))) - 1)
             octa += "."
-        for digit in l1:
-            octa += digit
+            for digit in l1:
+                octa += digit
         return octa
 
     def DecToHex(n):
         l1 = []
         fcount = 0
-        int_n, fl_n = str(n).split(".")
-        int_n = int(int_n)
-        fl_n = int(fl_n)/(10 ** len(fl_n))
-        while int_n > 0:
-            rem = str(int_n%16)
-            if rem == '10':
-                rem = 'A'
-            elif rem == '11':
-                rem = 'B'
-            elif rem == '12':
-                rem = 'C'
-            elif rem == '13':
-                rem = 'D'
-            elif rem == '14':
-                rem = 'E'
-            elif rem == '15':
-                rem = 'F'
-            l1.insert(0, rem)
-            int_n = int_n//16
-        hexa = ''
-        for digit in l1:
-            hexa = hexa + digit
-        l1.clear()
-        while fl_n != 0 and fcount < 10:
-            fcount += 1
-            append_wala = int(fl_n * 16)
-            if append_wala == 10:
-                append_wala = 'A'
-            elif append_wala == 11:
-                append_wala = 'B'
-            elif append_wala == 12:
-                append_wala = 'C'
-            elif append_wala == 13:
-                append_wala = 'D'
-            elif append_wala == 14:
-                append_wala = 'E'
-            elif append_wala == 15:
-                append_wala = 'F'
-            l1.append(str(append_wala))
-            fl_n = round(fl_n*16 - int(fl_n * 16), len(str(fl_n*16)) - len(str(int(fl_n*16))) - 1)
-        if int(n) != n:
+        try:
+            n = int(n)
+            while n > 0:
+                rem = str(n%16)
+                if rem == '10':
+                    rem = 'A'
+                elif rem == '11':
+                    rem = 'B'
+                elif rem == '12':
+                    rem = 'C'
+                elif rem == '13':
+                    rem = 'D'
+                elif rem == '14':
+                    rem = 'E'
+                elif rem == '15':
+                    rem = 'F'
+                l1.insert(0, rem)
+                n = n//16
+            hexa = ''
+            for digit in l1:
+                hexa = hexa + digit
+            l1.clear()
+        except ValueError:
+            int_n, fl_n = str(n).split(".")
+            int_n = int(int_n)
+            fl_n = int(fl_n)/(10 ** len(fl_n))
+            while int_n > 0:
+                rem = str(int_n%16)
+                if rem == '10':
+                    rem = 'A'
+                elif rem == '11':
+                    rem = 'B'
+                elif rem == '12':
+                    rem = 'C'
+                elif rem == '13':
+                    rem = 'D'
+                elif rem == '14':
+                    rem = 'E'
+                elif rem == '15':
+                    rem = 'F'
+                l1.insert(0, rem)
+                int_n = int_n//16
+            hexa = ''
+            for digit in l1:
+                hexa = hexa + digit
+            l1.clear()
+            while fl_n != 0 and fcount < 10:
+                fcount += 1
+                append_wala = int(fl_n * 16)
+                if append_wala == 10:
+                    append_wala = 'A'
+                elif append_wala == 11:
+                    append_wala = 'B'
+                elif append_wala == 12:
+                    append_wala = 'C'
+                elif append_wala == 13:
+                    append_wala = 'D'
+                elif append_wala == 14:
+                    append_wala = 'E'
+                elif append_wala == 15:
+                    append_wala = 'F'
+                l1.append(str(append_wala))
+                fl_n = round(fl_n*16 - int(fl_n * 16), len(str(fl_n*16)) - len(str(int(fl_n*16))) - 1)
             hexa += "."
-        for digit in l1:
-            hexa += digit
+            for digit in l1:
+                hexa += digit
         return hexa
 
     def BinToDec(n):
         pow2 = 0
         dec = 0
-        if int(n) == n:
+        try:
             n = int(n)
             while n > 0:
                 rem = n%10
                 dec += rem*(2**pow2)
                 pow2 += 1
                 n = n//10
-        else:
-            int_n, fl_n = str(n).split(".")
+        except ValueError:
+            int_n, fl_n = n.split(".")
             int_n = int(int_n)
             while int_n > 0:
                 rem = int_n%10
@@ -157,21 +200,21 @@ Press:
     def OctToDec(n):
         pow8 = 0
         dec = 0
-        if int(n) == n:
+        try:
             n = int(n)
             while n > 0:
                 rem = n%10
                 dec += rem*(8**pow8)
                 pow8 += 1
                 n = n//10
-        else:
-            int_n = int(n)
+        except ValueError:
+            int_n, fl_n = n.split(".")
+            int_n = int(int_n)
             while int_n > 0:
                 rem = int_n%10
                 dec += rem*(8**pow8)
                 pow8 += 1
                 int_n = int_n//10
-            fl_n = str(round(n - int(n), len(str(n)) - len(str(int(n))) - 1)).replace("0.", "")
             ind = -1
             for i in fl_n:
                 dec += int(i) * (8 ** ind)
