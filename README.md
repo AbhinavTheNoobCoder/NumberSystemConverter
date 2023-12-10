@@ -9,13 +9,10 @@ Modular code structure for easy maintenance.
 Usage:
 Run the script.
 Follow on-screen prompts for input.
-View the converted number based on specified conversion.
+View the converted number based on the specified conversion.
 
 Supported Conversions:
-Decimal to Binary, Octal, Hexadecimal
-Binary to Decimal
-Octal to Decimal
-Hexadecimal to Decimal
+From and to decimal, binary, octal and hexadecimal number systems.
 
 Contributing:
 Feel free to open issues or submit pull requests. Contributions are welcome!
